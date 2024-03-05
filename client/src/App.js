@@ -7,12 +7,16 @@ function App() {
   const [transcript, setTranscript] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const response = await fetch(
-      `http://localhost:3001/getTranscripts?url=${url}&passcode=${passcode}`
-    );
-    const data = await response.json();
-    setTranscript(data);
+    if (url === '' || passcode === '') {
+      alert('Enter a url and a valid meeting ID');
+    } else {
+      e.preventDefault();
+      const response = await fetch(
+        `http://localhost:3001/getTranscripts?url=${url}&passcode=${passcode}`
+      );
+      const data = await response.json();
+      setTranscript(data);
+    }
   };
 
   return (
@@ -46,7 +50,7 @@ function App() {
         <br />
       </div>
       <div className="transcript">
-        <p className='transcriptText'>{transcript}</p>
+        <p className="transcriptText">{transcript}</p>
       </div>
     </div>
   );
